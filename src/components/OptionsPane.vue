@@ -4,7 +4,7 @@
     <div>
       <div>
         <label for="file">
-          Select an image
+          Select a (not too big) image
           <input type="file"
             id="file"
             accept="image/gif, image/jpeg, image/png"

@@ -17,7 +17,6 @@ export default {
 <style lang="scss">
 .tile {
   border: 1px solid #111;
-  transition: border .3s;
 
   &.empty {
     box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 10px inset;
@@ -30,7 +29,7 @@ export default {
   }
 
   &:hover {
-    border-color: white;
+    border-color: #f00;
     cursor: pointer;
   }
 }
