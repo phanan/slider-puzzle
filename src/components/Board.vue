@@ -2,6 +2,11 @@
   <div class="board">
     <div class="frame-wrapper" :style="frameSize">
       <p v-if="valid" class="win">You Win!</p>
+      <div class="original"
+          v-if="showingOriginal && image"
+          @click="showingOriginal = false"
+          :style="{ background: `url(${image})`}">
+      </div>
       <div class="frame" :style="frameSize">
         <Tile v-for="tile in tiles"
           :key="tile.position"
@@ -13,6 +18,9 @@
     </div>
 
     <div class="controls">
+      <a class="toggle-original" href="#" @click.prevent="showingOriginal = !showingOriginal">
+        Toggle Original Image
+      </a>
       <a class="shuffle" href="#" @click.prevent="shuffleTiles">Reshuffle</a>
       <a class="reset" href="#" @click.prevent="reset">Reset</a>
       <a class="restart" href="#" @click.prevent="restart">New Game</a>
@@ -32,6 +40,7 @@ export default {
   data () {
     return {
       image: null,
+      showingOriginal: false,
       size: {
         horizontal: 0,
         vertical: 0
@@ -188,6 +197,14 @@ export default {
   position: relative;
   box-shadow: 0 0 0px 10px;
 
+  .original {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+
   p.win {
     position: absolute;
     top: 0;
@@ -223,6 +240,10 @@ export default {
     background: #f78403;
     color: #fff;
     border-radius: 3px;
+
+    &.toggle-original {
+      background: #d05b88;
+    }
 
     &.restart {
       background: #368ba0;
