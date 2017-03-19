@@ -209,6 +209,8 @@ export default {
 .frame {
   display: flex;
   flex-wrap: wrap;
+  background: url('../assets/board.jpg');
+  background-size: cover;
 }
 
 .controls {
