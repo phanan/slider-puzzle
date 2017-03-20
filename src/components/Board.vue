@@ -139,7 +139,7 @@ export default {
           pos + this.size.horizontal
         ]
         const movableTiles = this.tiles.filter(t => adjacents.indexOf(t.styles.order) > -1)
-        this.moveTile(sample(movableTiles))
+        this.switchTiles(emptyTile, sample(movableTiles))
       }
 
       // Make a backup for later reset
@@ -169,9 +169,16 @@ export default {
       })
 
       // If found the empty tile, just switch the flex order and we're good.
-      if (target) {
-        [target.styles.order, tile.styles.order] = [tile.styles.order, target.styles.order]
-      }
+      target && this.switchTiles(target, tile)
+    },
+
+    /**
+     * Switch two tiles.
+     * @param  {Object} a First tile
+     * @param  {Object} b Second tile
+     */
+    switchTiles (a, b) {
+      [a.styles.order, b.styles.order] = [b.styles.order, a.styles.order]
     },
 
     /**
