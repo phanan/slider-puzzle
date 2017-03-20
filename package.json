@@ -13,6 +13,7 @@
     "deploy": "yarn build && surge -d slider-puzzle.surge.sh -p dist"
   },
   "dependencies": {
+    "blueimp-load-image": "^2.12.2",
     "lodash.sample": "^4.2.1",
     "node-sass": "^4.5.0",
     "sass-loader": "^6.0.3",

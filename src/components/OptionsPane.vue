@@ -4,7 +4,7 @@
     <div>
       <div>
         <label for="file">
-          Select a (not too big) image
+          Select an image
           <input type="file"
             id="file"
             accept="image/gif, image/jpeg, image/png"
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import loadImage from 'blueimp-load-image'
+
 export default {
   data () {
     return {
@@ -39,12 +41,15 @@ export default {
         return
       }
 
-      // Read the image into a data URL to use throughout the app.
-      const reader = new FileReader()
-      reader.onload = e => {
-        this.image = e.target.result
-      }
-      reader.readAsDataURL(e.target.files[0])
+      loadImage(e.target.files[0], canvas => {
+        this.image = canvas.toDataURL()
+      }, {
+        maxWidth: 600,
+        maxHeight: 600,
+        minWidth: 200,
+        minHeight: 200,
+        canvas: true
+      })
     },
 
     /**
