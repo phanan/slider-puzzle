@@ -131,14 +131,9 @@ export default {
       // To make sure the puzzle is solvable, we execute a series of random moves
       for (let i = 0, j = this.totalTiles * 5; i < j; ++i) {
         const emptyTile = this.tiles.find(t => t.isEmpty)
-        const pos = emptyTile.styles.order
-        const adjacents = [
-          pos % this.size.horizontal ? pos - 1 : null,
-          (pos + 1) % this.size.horizontal ? pos + 1 : null,
-          pos - this.size.horizontal,
-          pos + this.size.horizontal
-        ]
-        const movableTiles = this.tiles.filter(t => adjacents.indexOf(t.styles.order) > -1)
+        const movableTiles = this.tiles.filter(t => {
+          return this.getAdjacentOrders(emptyTile).indexOf(t.styles.order) > -1
+        })
         this.switchTiles(emptyTile, sample(movableTiles))
       }
 
@@ -156,16 +151,8 @@ export default {
       }
 
       // Find the 4 direct (non-diagonal) adjacent tiles and see if any of them is the empty tile
-      const pos = tile.styles.order
-      const adjacents = [
-        pos % this.size.horizontal ? pos - 1 : null,
-        (pos + 1) % this.size.horizontal ? pos + 1 : null,
-        pos - this.size.horizontal,
-        pos + this.size.horizontal
-      ]
-
       const target = this.tiles.find(t => {
-        return t.isEmpty && adjacents.indexOf(t.styles.order) > -1
+        return t.isEmpty && this.getAdjacentOrders(tile).indexOf(t.styles.order) > -1
       })
 
       // If found the empty tile, just switch the flex order and we're good.
@@ -179,6 +166,21 @@ export default {
      */
     switchTiles (a, b) {
       [a.styles.order, b.styles.order] = [b.styles.order, a.styles.order]
+    },
+
+    /**
+     * Get the four direct (non-diagonal) adjacent tiles' orders of a tile.
+     * @param  {Object} tile
+     * @return {Array.<Number>}
+     */
+    getAdjacentOrders (tile) {
+      const pos = tile.styles.order
+      return [
+        pos % this.size.horizontal ? pos - 1 : null,
+        (pos + 1) % this.size.horizontal ? pos + 1 : null,
+        pos - this.size.horizontal,
+        pos + this.size.horizontal
+      ]
     },
 
     /**
