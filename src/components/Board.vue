@@ -111,7 +111,7 @@ export default {
       for (let i = 0; i < this.totalTiles; ++i) {
         this.tiles.push({
           styles: {
-            background: i === 0 ? '#555' : `url(${this.image})`,
+            background: i === 0 ? 'transparent' : `url(${this.image})`,
             backgroundPositionX: `-${(i % this.size.horizontal) * this.tileSize.width}px`,
             backgroundPositionY: `-${Math.floor(i / this.size.horizontal) * this.tileSize.height}px`,
             width: `${this.tileSize.width}px`,
@@ -235,7 +235,7 @@ export default {
 .frame {
   display: flex;
   flex-wrap: wrap;
-  background: url('../assets/board.jpg');
+  background: #612211 url('../assets/board.jpg');
   background-size: cover;
 }
 
